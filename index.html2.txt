@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>연주시차 탐험 1단계</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:맑은 고딕,sans-serif;
+    background:#eef4ff;
+}
+
+header{
+    background:#005bbb;
+    color:white;
+    text-align:center;
+    padding:15px;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:20px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.scene{
+
+    position:relative;
+    height:350px;
+    overflow:hidden;
+
+    background:
+    linear-gradient(
+    to top,
+    #67b84f 0%,
+    #67b84f 25%,
+    #bfe8ff 25%,
+    #bfe8ff 100%
+    );
+
+    border-radius:12px;
+}
+
+#mountain{
+
+    position:absolute;
+    top:70px;
+    left:550px;
+
+    font-size:120px;
+
+    transition:0.1s;
+}
+
+#tree{
+
+    position:absolute;
+    top:170px;
+    left:420px;
+
+    font-size:90px;
+
+    transition:0.1s;
+}
+
+#observer{
+
+    position:absolute;
+    bottom:10px;
+    left:120px;
+
+    font-size:80px;
+
+    transition:0.1s;
+}
+
+.controls{
+
+    text-align:center;
+
+    margin-top:20px;
+}
+
+button{
+
+    padding:12px 18px;
+
+    font-size:16px;
+
+    cursor:pointer;
+}
+
+.hidden{
+    display:none;
+}
+
+.success{
+    color:green;
+    font-weight:bold;
+}
+
+.fail{
+    color:red;
+    font-weight:bold;
+}
+
+textarea{
+    width:100%;
+    height:120px;
+}
+
+#positionLabel{
+
+    font-size:18px;
+
+    text-align:center;
+
+    margin-top:10px;
+}
+
+</style>
+
+</head>
+<body>
+
+<header>
+
+<h1>🌟 연주시차 탐험</h1>
+<h2>1단계 : 가까운 물체와 먼 물체</h2>
+
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h2>탐구하기</h2>
+
+<p>
+
+관찰자를 왼쪽과 오른쪽으로 이동시켜 보세요.
+
+어떤 물체가 더 크게 움직이는 것처럼 보이나요?
+
+</p>
+
+<div class="scene">
+
+<div id="mountain">⛰️</div>
+
+<div id="tree">🌳</div>
+
+<div id="observer">🧑</div>
+
+</div>
+
+<div id="positionLabel">
+
+관찰 위치 : 가운데
+
+</div>
+
+<div class="controls">
+
+<button onclick="moveLeft()">
+⬅ 왼쪽 이동
+</button>
+
+<button onclick="moveCenter()">
+🏠 가운데
+</button>
+
+<button onclick="moveRight()">
+오른쪽 이동 ➡
+</button>
+
+</div>
+
+<br>
+
+<button onclick="showQuiz()">
+충분히 관찰했다
+</button>
+
+</div>
+
+<!-- OX -->
+
+<div id="quizBox"
+class="card hidden">
+
+<h2>OX 문제</h2>
+
+<p>
+
+관찰 위치가 바뀌면
+
+멀리 있는 산이 더 크게 움직여 보인다.
+
+</p>
+
+<button onclick="checkOX('O')">O</button>
+<button onclick="checkOX('X')">X</button>
+
+<p id="oxResult"></p>
+
+</div>
+
+<!-- 서술형 -->
+
+<div id="summaryBox"
+class="card hidden">
+
+<h2>배운 내용 정리하기</h2>
+
+<p>
+
+왜 나무가 산보다 더 크게 움직여 보였는지
+
+설명해 보세요.
+
+</p>
+
+<textarea id="answer"></textarea>
+
+<br><br>
+
+<button onclick="gradeAnswer()">
+
+제출
+
+</button>
+
+<p id="gradeResult"></p>
+
+</div>
+
+<!-- 통과 -->
+
+<div id="passBox"
+class="card hidden">
+
+<h2>🎉 통과!</h2>
+
+<p>
+관찰 위치가 바뀌면 가까운 물체일수록
+더 크게 위치가 변한 것처럼 보입니다.
+</p>
+
+<button>
+2단계 해금 예정
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+/*
+현재 위치
+
+left
+center
+right
+*/
+
+function moveLeft(){
+
+ document.getElementById("observer").style.left="40px";
+
+ document.getElementById("tree").style.left="500px";
+
+ document.getElementById("mountain").style.left="570px";
+
+ document.getElementById("positionLabel").innerHTML=
+ "관찰 위치 : 왼쪽";
+
+}
+
+function moveCenter(){
+
+ document.getElementById("observer").style.left="120px";
+
+ document.getElementById("tree").style.left="420px";
+
+ document.getElementById("mountain").style.left="550px";
+
+ document.getElementById("positionLabel").innerHTML=
+ "관찰 위치 : 가운데";
+
+}
+
+function moveRight(){
+
+ document.getElementById("observer").style.left="220px";
+
+ document.getElementById("tree").style.left="300px";
+
+ document.getElementById("mountain").style.left="520px";
+
+ document.getElementById("positionLabel").innerHTML=
+ "관찰 위치 : 오른쪽";
+
+}
+
+/*
+퀴즈 표시
+*/
+
+function showQuiz(){
+
+ document
+ .getElementById("quizBox")
+ .classList
+ .remove("hidden");
+
+}
+
+let oxPass=false;
+
+/*
+OX 채점
+*/
+
+function checkOX(answer){
+
+ const result=
+ document.getElementById("oxResult");
+
+ if(answer==="X"){
+
+   oxPass=true;
+
+   result.innerHTML=
+   "✅ 맞았습니다. 가까운 나무가 더 크게 움직입니다.";
+
+   result.className=
+   "success";
+
+   document
+   .getElementById("summaryBox")
+   .classList
+   .remove("hidden");
+
+ }else{
+
+   result.innerHTML=
+   "❌ 다시 살펴보세요.";
+
+   result.className=
+   "fail";
+
+ }
+
+}
+
+/*
+서술형 채점
+*/
+
+function gradeAnswer(){
+
+ if(!oxPass){
+
+   alert("먼저 OX 문제를 해결하세요.");
+
+   return;
+ }
+
+ const answer=
+ document
+ .getElementById("answer")
+ .value
+ .toLowerCase();
+
+ let score=0;
+
+ /*
+ 가까운
+ */
+
+ if(
+  answer.includes("가깝") ||
+  answer.includes("근처")
+ ){
+   score+=40;
+ }
+
+ /*
+ 관찰위치 변화
+ */
+
+ if(
+  answer.includes("관찰") ||
+  answer.includes("위치") ||
+  answer.includes("이동")
+ ){
+   score+=30;
+ }
+
+ /*
+ 크게 보임
+ */
+
+ if(
+  answer.includes("크게") ||
+  answer.includes("많이")
+ ){
+   score+=30;
+ }
+
+ const result=
+ document.getElementById("gradeResult");
+
+ if(score>=70){
+
+   result.innerHTML=
+   "✅ 통과! "+score+"점";
+
+   result.className=
+   "success";
+
+   document
+   .getElementById("passBox")
+   .classList
+   .remove("hidden");
+
+ }else{
+
+   result.innerHTML=
+   "❌ 조금 더 자세히 설명해 보세요. "+score+"점";
+
+   result.className=
+   "fail";
+
+ }
+
+}
+
+</script>
+
+</body>
+</html>
